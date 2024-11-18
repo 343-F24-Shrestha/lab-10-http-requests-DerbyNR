@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show me the Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin: 20px;
+        }
+        button {
+            margin: 10px 0;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .output {
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Show me the Data</h1>
+        <div>
+            <h3><Replace Title 1></h3>
+            <button onclick="fetchData(1)">Display Data</button>
+            <div id="output1" class="output">No data fetched yet.</div>
+        </div>
+        <div>
+            <h3><Replace Title 2></h3>
+            <button onclick="fetchData(2)">Display Data</button>
+            <div id="output2" class="output">No data fetched yet.</div>
+        </div>
+        <div>
+            <h3><Replace Title 2></h3>
+            <button onclick="fetchData(3)">Display Data</button>
+            <div id="output3" class="output">No data fetched yet.</div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchData(site) {
+            let url = '';
+            let outputDiv = null;
+
+            switch (site) {
+                case 1:
+                    url = 'https://official-joke-api.appspot.com/random_joke';
+                    outputDiv = document.getElementById('output1');
+                break;
+                case 2:
+                    url = 'https://api.quotable.io/random';
+                    outputDiv = document.getElementById('output2');
+                break;
+                case 3:
+                    url = 'https://dog.ceo/api/breeds/image/random';
+                    outputDiv = document.getElementById('output3');
+                break;
+                default:
+                    console.error('Invalid Site');
+                    return;
+            }
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (site == 1) {
+                    outputDiv.innerHTML = '<p><b>Setup:</b> ${data.setup}</p><p><b>Punchline:</b> ${data.punchline}</p>';
+                } else if (site == 2) {
+                    outputDiv.innerHTML = `<p><b>Quote:</b> "${data.content}"</p><p><b>Author:</b> ${data.author}</p>`;
+                } else if (site == 3) {
+                    outputDiv.innerHTML = `<img src="${data.message}" alt="Random Dog" style="max-width:100%; height:auto;">`;
+                }
+
+            } catch (error) {
+                outputDiv.innerHTML = `<p style="color: red;">Failed to fetch data: ${error.message}</p>`;
+            }
+        }
+           
+    </script>
+</body>
+</html>
