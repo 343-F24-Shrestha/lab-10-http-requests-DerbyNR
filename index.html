@@ -55,7 +55,7 @@
                     outputDiv = document.getElementById('output1');
                 break;
                 case 2:
-                    url = 'https://api.quotable.io/random';
+                    url = 'https://dummyjson.com/quotes/random';
                     outputDiv = document.getElementById('output2');
                 break;
                 case 3:
@@ -72,9 +72,9 @@
                 const data = await response.json();
 
                 if (site == 1) {
-                    outputDiv.innerHTML = '<p><b>Setup:</b> ${data.setup}</p><p><b>Punchline:</b> ${data.punchline}</p>';
+                    outputDiv.innerHTML = `<p><b>Setup:</b> ${data.setup}</p><p><b>Punchline:</b> ${data.punchline}</p>`;
                 } else if (site == 2) {
-                    outputDiv.innerHTML = `<p><b>Quote:</b> "${data.content}"</p><p><b>Author:</b> ${data.author}</p>`;
+                    outputDiv.innerHTML = `<p><b>Quote:</b> "${data.quote}"</p><p><b>Author:</b> ${data.author}</p>`;
                 } else if (site == 3) {
                     outputDiv.innerHTML = `<img src="${data.message}" alt="Random Dog" style="max-width:100%; height:auto;">`;
                 }
